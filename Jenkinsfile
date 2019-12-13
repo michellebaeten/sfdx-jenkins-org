@@ -10,6 +10,7 @@ node {
     def TEST_LEVEL='RunLocalTests'
 
 
+
     def toolbelt = tool 'toolbelt'
 
 
@@ -36,7 +37,7 @@ node {
         stage('Authorize to Salesforce') {
 //	    rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --instanceurl https://login.salesforce.com"		
        		
-            rc = command "${toolbelt} force:auth:jwt:grant --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --setdefaultdevhubusername --jwtkeyfile \"${server_key_file}\" --username ${SF_USERNAME}"
+            rc = command "${toolbelt} force:auth:jwt:grant --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --setdefaultdevhubusername --jwtkeyfile C:\Users\941489\Documents\sfdx\jenkinscrt --username ${SF_USERNAME}"
             if (rc != 0) {
                 error 'Salesforce org authorization failed.'
             }
