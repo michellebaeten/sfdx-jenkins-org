@@ -40,7 +40,7 @@ node {
             if (rc != 0) {
                 error 'Salesforce org authorization failed.'
             }
-            rmsg = command "${toolbelt} force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername"
+            rmsg = command "${toolbelt} force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername --targetdevhubusername ${SF_USERNAME}"
             printf rmsg
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
