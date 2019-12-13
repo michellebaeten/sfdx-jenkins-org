@@ -2,9 +2,9 @@
   "orgName": "Demo Company",
   "edition": "Developer",
   "features": [],
-  "settings": {
-    "lightningExperienceSettings": {
-        "enableS1DesktopEnabled": true
+   "settings": {
+    "orgPreferenceSettings": {
+      "s1EncryptedStoragePref2": false
     }
 }
 }
