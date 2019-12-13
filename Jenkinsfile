@@ -39,7 +39,14 @@ node {
             if (rc != 0) {
                 error 'Salesforce org authorization failed.'
             }
-          //  rmsg = command "${toolbelt} force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername"
+            rmsg = command "${toolbelt} force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername"
+            printf rmsg
+            def jsonSlurper = new JsonSlurperClassic()
+            def robj = jsonSlurper.parseText(rmsg)
+            if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
+            SFDC_USERNAME=robj.username
+            robj = null
+        
         }
         stage('Push Source') {
 	     rc = command "${toolbelt} force:source:push --targetusername ${SF_USERNAME} "
@@ -51,11 +58,11 @@ node {
         // -------------------------------------------------------------------------
         // Deploy metadata and execute unit tests.
         // -------------------------------------------------------------------------
-        stage('Deploy and Run Tests') {
-	     rc = command "${toolbelt} force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
-            if (rc != 0) {
-                error 'Salesforce deploy and test run failed.'
-            }
+       // stage('Deploy and Run Tests') {
+	   //  rc = command "${toolbelt} force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+        //    if (rc != 0) {
+        //        error 'Salesforce deploy and test run failed.'
+        //    }
         }
 
 
