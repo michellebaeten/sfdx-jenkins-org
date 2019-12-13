@@ -41,7 +41,7 @@ node {
                 error 'Salesforce org authorization failed.'
             }
             rmsg = command "${toolbelt} force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername --targetdevhubusername ${SF_USERNAME}"
-            printf rmsg
+            //printf rmsg
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
             if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
