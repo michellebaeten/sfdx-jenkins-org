@@ -1,4 +1,5 @@
 public with sharing class MyClass {
+	//kj
 	public MyClass() {
 
 	}
