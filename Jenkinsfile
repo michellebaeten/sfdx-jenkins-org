@@ -5,7 +5,7 @@ node {
     def SF_CONSUMER_KEY=env.SF_CONSUMER_KEY
     def SF_USERNAME=env.SF_USERNAME
     def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
-    def DEPLOYDIR='src'
+    def DEPLOYDIR='force-app'
     def TEST_LEVEL='RunLocalTests'
 
 
@@ -41,7 +41,12 @@ node {
             }
           //  rmsg = command "${toolbelt} force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername"
         }
-
+        stage('Push Source') {
+	     rc = command "${toolbelt} force:source:push --targetusername ${SF_USERNAME} "
+            if (rc != 0) {
+                error 'Salesforce push failed.'
+            }
+        }
 
         // -------------------------------------------------------------------------
         // Deploy metadata and execute unit tests.
