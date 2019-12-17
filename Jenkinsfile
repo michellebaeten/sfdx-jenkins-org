@@ -41,13 +41,13 @@ node {
             if (rc != 0) {
                 error 'Salesforce org authorization failed.'
             }
-            rmsg = command "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org2 -v ${SF_USERNAME}"
+         //   rmsg = command "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org2 -v ${SF_USERNAME}"
             //printf rmsg
-            def jsonSlurper = new JsonSlurperClassic()
-            def robj = jsonSlurper.parseText(rmsg)
-            if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
-            SFDC_USERNAME=robj.username
-            robj = null
+         ////   def jsonSlurper = new JsonSlurperClassic()
+         //   def robj = jsonSlurper.parseText(rmsg)
+         //   if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
+         //   SFDC_USERNAME=robj.username
+         //   robj = null
         
         }
         stage('Push Source') {
