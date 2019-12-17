@@ -32,15 +32,15 @@ node {
         // -------------------------------------------------------------------------
         // Authenticate to Salesforce using the server key.
         // -------------------------------------------------------------------------
-
+    }
 
         stage('Authorize to Salesforce') {
 //	    rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --instanceurl https://login.salesforce.com"		
        		
-     //       rc = command "${toolbelt} force:auth:jwt:grant --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --setdefaultdevhubusername --jwtkeyfile ${server_key_file} --username ${SF_USERNAME}"
-      //      if (rc != 0) {
-      //          error 'Salesforce org authorization failed.'
-     //       }
+            rc = command "${toolbelt} force:auth:jwt:grant --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --setdefaultdevhubusername --jwtkeyfile server.key --username ${SF_USERNAME}"
+            if (rc != 0) {
+                error 'Salesforce org authorization failed.'
+            }
             rmsg = command "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org2 -v ${SF_USERNAME}"
             //printf rmsg
             def jsonSlurper = new JsonSlurperClassic()
@@ -78,7 +78,7 @@ node {
         //        error 'Salesforce deploy failed.'
         //    }
         //}
-    }
+    //}
 }
 
 def command(script) {
