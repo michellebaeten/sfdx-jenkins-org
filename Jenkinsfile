@@ -50,12 +50,14 @@ node {
          //   robj = null
         
         }
+            withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
         stage('Push Source') {
 	     rc = command "${toolbelt} force:source:push --targetusername ${SF_USERNAME} "
             if (rc != 0) {
                 error 'Salesforce push failed.'
             }
         }
+            }
 
         // -------------------------------------------------------------------------
         // Deploy metadata and execute unit tests.
