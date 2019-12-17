@@ -5,7 +5,7 @@ node {
 
     def SF_CONSUMER_KEY=env.SF_CONSUMER_KEY
     def SF_USERNAME=env.SF_USERNAME
-    def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
+  //def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
     def DEPLOYDIR='force-app'
     def TEST_LEVEL='RunLocalTests'
     
@@ -50,14 +50,14 @@ node {
          //   robj = null
         
         }
-            withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
+        //    withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
         stage('Push Source') {
 	     rc = command "${toolbelt} force:source:push --targetusername ${SF_USERNAME} "
             if (rc != 0) {
                 error 'Salesforce push failed.'
             }
         }
-            }
+        //    }
 
         // -------------------------------------------------------------------------
         // Deploy metadata and execute unit tests.
