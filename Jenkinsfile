@@ -43,7 +43,7 @@ node {
                 error 'Salesforce org authorization failed.'
             }
             rmsg = command "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org2 -v ${SF_USERNAME}"
-            printf rmsg
+           // printf rmsg
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
             if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
@@ -65,11 +65,20 @@ node {
         stage('Run Apex Test') {
         bat "mkdir -p ${RUN_ARTIFACT_DIR}"
         timeout(time: 120, unit: 'SECONDS') {
-   	    rc = command "${toolbelt}/sfdx force:apex:test:run --testlevel RunLocalTests --outputdir ${RUN_ARTIFACT_DIR} --resultformat tap --targetusername ${SFDC_USERNAME}"
+   	    rc = command "${toolbelt} force:apex:test:run --testlevel RunLocalTests --outputdir ${RUN_ARTIFACT_DIR} --resultformat tap --targetusername ${SFDC_USERNAME}"
 	if (rc != 0) {
 		error 'apex test run failed'
 	}
    }
+   stage('Delete Test Org') {
+
+        timeout(time: 120, unit: 'SECONDS') {
+            rc = command "${toolbelt} force:org:delete --targetusername ${SFDC_USERNAME} --noprompt"
+            if (rc != 0) {
+                error 'org deletion request failed'
+            }
+        }
+    }
 }
         //    }
 
