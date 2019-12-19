@@ -2,12 +2,11 @@
   "orgName": "Demo Company",
   "edition": "Developer",
   "features": [],
-{
-    "settings": {
+  "settings": {
         "mobileSettings": {
             "enableS1EncryptedStoragePref2": false
         }
     }
-}
+
 }
  
