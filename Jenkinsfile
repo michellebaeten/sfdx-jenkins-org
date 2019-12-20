@@ -37,8 +37,6 @@ node {
 
         stage('Authorize to Salesforce') {
 
-echo "test"
-bat "echo ${SF_CONSUMER_KEY}"
 
 //	    rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --instanceurl https://login.salesforce.com"		
        		
@@ -47,11 +45,6 @@ bat "echo ${SF_CONSUMER_KEY}"
                 error 'Salesforce org authorization failed.'
             }
             rmsg = bat returnStdout: true, script: "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org2 -v ${SF_USERNAME}"
-            println rmsg
-            println rmsg
-            echo rmsg
-            println "some output"
-            echo "some other output"
             rtxt = rmsg.substring(rmsg.lastIndexOf("username: ") + 10)
             echo rtxt
             SFDC_USERNAME=rtxt
