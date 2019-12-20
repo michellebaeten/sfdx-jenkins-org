@@ -13,9 +13,7 @@ node {
 
 
     def toolbelt = tool 'toolbelt'
-            def out
-def config = new HashMap()
-def bindings = getBinding()
+
 
     // -------------------------------------------------------------------------
     // Check out code from source control.
@@ -41,9 +39,7 @@ def bindings = getBinding()
 
 echo "test"
 bat "echo ${SF_CONSUMER_KEY}"
-config.putAll(bindings.getVariables())
-out = config['out']
-out.println "Printed do Jenkins console."
+
 //	    rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --instanceurl https://login.salesforce.com"		
        		
             rc = command "${toolbelt} force:auth:jwt:grant --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --setdefaultdevhubusername --jwtkeyfile server.key --username ${SF_USERNAME}"
