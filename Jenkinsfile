@@ -36,6 +36,12 @@ node {
 //    }
 
         stage('Authorize to Salesforce') {
+            def out
+def config = new HashMap()
+def bindings = getBinding()
+config.putAll(bindings.getVariables())
+out = config['out']
+out.println "Printed do Jenkins console."
 //	    rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --instanceurl https://login.salesforce.com"		
        		
             rc = command "${toolbelt} force:auth:jwt:grant --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --setdefaultdevhubusername --jwtkeyfile server.key --username ${SF_USERNAME}"
@@ -46,7 +52,8 @@ node {
             println rmsg
             println rmsg
             echo rmsg
-            rmsg = / + rmsg + /
+            println "some output"
+            echo "some other output"
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
             if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
