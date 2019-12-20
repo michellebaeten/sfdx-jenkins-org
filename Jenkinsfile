@@ -52,11 +52,14 @@ bat "echo ${SF_CONSUMER_KEY}"
             echo rmsg
             println "some output"
             echo "some other output"
-            def jsonSlurper = new JsonSlurperClassic()
-            def robj = jsonSlurper.parseText(rmsg)
-            if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
-            SFDC_USERNAME=robj.username
-            robj = null
+            rtxt = rmsg.substring(rmsg.lastIndexOf("username: ") + 10)
+            echo rtxt
+            SFDC_USERNAME=rtxt
+         //   def jsonSlurper = new JsonSlurperClassic()
+         //   def robj = jsonSlurper.parseText(rmsg)
+         //   if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
+         //   SFDC_USERNAME=robj.username
+         //   robj = null
         
         }
         stage('Push Source') {
