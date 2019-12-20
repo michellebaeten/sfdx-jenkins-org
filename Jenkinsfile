@@ -60,10 +60,10 @@ node {
             if (rc != 0) {
                 error 'Salesforce push failed.'
             }
-         rc = command "${toolbelt} force:user:permset:assign --targetusername ${SFDC_USERNAME} --permsetname DreamHouse"
-         if (rc != 0) {
-            error 'push all failed'
-         }
+   //      rc = command "${toolbelt} force:user:permset:assign --targetusername ${SFDC_USERNAME} --permsetname DreamHouse"
+   //      if (rc != 0) {
+    //        error 'push all failed'
+    //     }
         }
 
         stage('Run Apex Test') {
