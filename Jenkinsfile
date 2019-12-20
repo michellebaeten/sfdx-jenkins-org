@@ -13,7 +13,9 @@ node {
 
 
     def toolbelt = tool 'toolbelt'
-
+            def out
+def config = new HashMap()
+def bindings = getBinding()
 
     // -------------------------------------------------------------------------
     // Check out code from source control.
@@ -36,9 +38,9 @@ node {
 //    }
 
         stage('Authorize to Salesforce') {
-            def out
-def config = new HashMap()
-def bindings = getBinding()
+
+echo "test"
+bat "echo ${SF_CONSUMER_KEY}"
 config.putAll(bindings.getVariables())
 out = config['out']
 out.println "Printed do Jenkins console."
