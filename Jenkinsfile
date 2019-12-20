@@ -45,6 +45,7 @@ node {
             rmsg = bat returnStdout: true, script: "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org2 -v ${SF_USERNAME}"
             println rmsg
             println rmsg
+            echo rmsg
             rmsg = '/'+ rmsg + '/'
             def jsonSlurper = new JsonSlurperClassic()
             def robj = jsonSlurper.parseText(rmsg)
