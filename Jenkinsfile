@@ -8,7 +8,7 @@ node {
     def SERVER_KEY_CREDENTIALS_ID=env.JWT_CRED_ID_DH
     def DEPLOYDIR='force-app'
     def TEST_LEVEL='RunLocalTests'
-    def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"    
+    def RUN_ARTIFACT_DIR="\\tests\\${BUILD_NUMBER}"    
     
 
 
@@ -44,10 +44,13 @@ node {
             if (rc != 0) {
                 error 'Salesforce org authorization failed.'
             }
-            rmsg = bat returnStdout: true, script: "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org2 -v ${SF_USERNAME}"
+            rmsg = bat returnStdout: true, script: "${toolbelt} force:org:create -s -f config/project-scratch-def.json -a sfdx-org -v ${SF_USERNAME}"
             rtxt = rmsg.substring(rmsg.lastIndexOf("username: ") + 10)
             echo rtxt
             SFDC_USERNAME=rtxt
+        // generate password
+          rmsg = bat returnStdout: true, script: "${toolbelt} sfdx force:user:password:generate --targetusername ${SFDC_USERNAME}"
+          echo rmsg
          //   def jsonSlurper = new JsonSlurperClassic()
          //   def robj = jsonSlurper.parseText(rmsg)
          //   if (robj.status != "ok") { error 'org creation failed: ' + robj.message }
@@ -67,7 +70,7 @@ node {
         }
 
         stage('Run Apex Test') {
-        bat "mkdir -p ${RUN_ARTIFACT_DIR}"
+        bat "mkdir ${RUN_ARTIFACT_DIR}"
         timeout(time: 120, unit: 'SECONDS') {
    	    rc = command "${toolbelt} force:apex:test:run --testlevel RunLocalTests --outputdir ${RUN_ARTIFACT_DIR} --resultformat tap --targetusername ${SFDC_USERNAME}"
 	if (rc != 0) {
