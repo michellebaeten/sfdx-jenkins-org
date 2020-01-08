@@ -49,7 +49,7 @@ node {
             echo rtxt
             SFDC_USERNAME=rtxt
         // generate password
-          rmsg = bat returnStdout: true, script: "${toolbelt} sfdx force:user:password:generate --targetusername ${SFDC_USERNAME}"
+          rmsg = bat returnStdout: true, script: "${toolbelt} force:user:password:generate --targetusername ${SFDC_USERNAME}"
           echo rmsg
          //   def jsonSlurper = new JsonSlurperClassic()
          //   def robj = jsonSlurper.parseText(rmsg)
