@@ -77,15 +77,15 @@ node {
 		error 'apex test run failed'
 	}
    }
-   stage('Delete Test Org') {
+ //  stage('Delete Test Org') {
 
-        timeout(time: 120, unit: 'SECONDS') {
-            rc = command "${toolbelt} force:org:delete --targetusername ${SFDC_USERNAME} y"
-            if (rc != 0) {
-                error 'org deletion request failed'
-            }
-        }
-    }
+ //       timeout(time: 120, unit: 'SECONDS') {
+  //          rc = command "${toolbelt} force:org:delete --targetusername ${SFDC_USERNAME}"
+  //          if (rc != 0) {
+  //              error 'org deletion request failed'
+   //         }
+   //     }
+  //  }
 }
         //    }
 
