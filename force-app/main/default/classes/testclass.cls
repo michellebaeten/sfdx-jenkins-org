@@ -1,5 +1,6 @@
-public with sharing class testclass {
-    public testclass() {
+@isTest
+private class testclass {
+    static testMethod void testclass() {
 
     }
 }
